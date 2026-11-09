@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Sitemap: https://sehatup.com/sitemap.xml
+
+# Disallow admin pages
+Disallow: /admin/

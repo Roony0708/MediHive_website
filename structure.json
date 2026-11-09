@@ -1,0 +1,268 @@
+{
+  "project": {
+    "name": "MediHive Healthcare",
+    "type": "Healthcare digital platform (web app)",
+    "stack": {
+      "framework": "React 19 + TypeScript",
+      "buildTool": "Vite",
+      "routing": "React Router (BrowserRouter)",
+      "styling": "CSS-in-JS (inline <style>) + CSS custom properties (global.css) + Tailwind CSS + shadcn UI",
+      "animation": "framer-motion",
+      "icons": "lucide-react",
+      "seo": "react-helmet-async",
+      "state": "React Context (ThemeContext)",
+      "entry": "src/App.tsx -> src/main.tsx"
+    },
+    "brand": {
+      "name": "MediHive",
+      "tagline": "Your Health, Our Priority",
+      "domain": "https://medihive.com"
+    }
+  },
+  "designSystem": {
+    "tokensFile": {
+      "path": "src/styles/global.css",
+      "scope": "CSS custom properties, light (default) + dark ([data-theme='dark'])",
+      "rootOverrides": "src/App.tsx uses @astryxdesign/theme-neutral neutralTheme"
+    },
+    "colors": {
+      "primary": "#e11d48",
+      "primaryHover": "#9f1239",
+      "primaryLight": "#fef1f4",
+      "secondary": "#ffb2ba",
+      "accent": "#10b981",
+      "bg": "#fdfaf8",
+      "bgSecondary": "#ffffff",
+      "bgTertiary": "#f5efec",
+      "text": "#1a1412",
+      "textSecondary": "#4a3f3a",
+      "textTertiary": "#8a7a72",
+      "border": "#e8e0db",
+      "borderLight": "#f2ece8"
+    },
+    "darkTokens": {
+      "primaryLight": "#2d0d1a",
+      "bg": "#161110",
+      "bgSecondary": "#0f0b0a",
+      "bgTertiary": "#1f1917",
+      "text": "#f0eae6",
+      "textSecondary": "#a89b95",
+      "textTertiary": "#7a6b65",
+      "border": "#2a221f",
+      "borderLight": "#352c28"
+    },
+    "typography": {
+      "fontSans": "Manrope",
+      "fontDisplay": "Manrope",
+      "titleWrap": "text-wrap: balance",
+      "subtitleWrap": "text-wrap: pretty",
+      "heroTitleTrack": "letter-spacing: -0.02em"
+    },
+    "radii": { "sm": 4, "md": 12, "lg": 16, "xl": 24 },
+    "zIndexScale": {
+      "dropdown": 100,
+      "sticky": 200,
+      "modalBackdrop": 300,
+      "modal": 400,
+      "toast": 500,
+      "tooltip": 600
+    },
+    "themeModes": ["light", "dark"]
+  },
+
+  "appShell": {
+    "providers": {
+      "HelmetProvider": "App.tsx",
+      "ThemeContext": "src/context/ThemeContext.tsx",
+      "BrowserRouter": "App.tsx"
+    },
+    "layout": {
+      "MainLayout": {
+        "path": "src/layouts/MainLayout.tsx",
+        "children": ["Header", "Outlet", "Footer", "ChatBot"],
+        "uses": ["ScrollToTop", "theme-aware scrollbar"]
+      }
+    },
+    "layoutComponents": {
+      "Header": {
+        "path": "src/layouts/Header.tsx",
+        "features": ["logo", "desktop nav", "MegaMenu (Doctors/Services/Specialties)", "theme toggle", "CTA button"],
+        "menuGroups": [
+          { "label": "Doctors", "path": "/doctors", "children": ["Find a Doctor", "Book Appointment", "Video Consultation", "Top Specialists"] },
+          { "label": "Services", "path": "/services", "children": ["All Services", "Health Checkups", "Diagnostics", "Pharmacy", "Ambulance"] },
+          { "label": "Specialties", "path": "/specialties", "children": ["All Specialties", "Cardiology", "Orthopedics", "Neurology", "Pediatrics", "Oncology"] }
+        ]
+      },
+      "MegaMenu": { "path": "src/layouts/MegaMenu.tsx" },
+      "MobileDrawer": {
+        "path": "src/layouts/MobileDrawer.tsx",
+        "features": "slide-in nav drawer, close button, theme toggle"
+      },
+      "Footer": {
+        "path": "src/layouts/Footer.tsx",
+        "sections": ["Brand/About blurb", "Quick Links", "Services", "Support", "Contact info", "Legal links", "Social links", "Copyright"]
+      }
+    },
+    "global": [
+      "ChatBot floating launcher (bottom-right, z-index toast)",
+      "Hero video background (Home only)",
+      "Hero gradient overlay (all pages)"
+    ]
+  },
+
+  "routes": {
+    "router": "src/router/index.tsx",
+    "seoMapper": "src/router/index.tsx (pages record: title + description per route)",
+    "layoutWrapper": "All routes wrapped in <MainLayout>",
+    "list": [
+      { "path": "/", "title": "Home", "page": "src/pages/Home/index.tsx" },
+      { "path": "/about", "title": "About Us", "page": "src/pages/About/index.tsx" },
+      { "path": "/doctors", "title": "Find a Doctor", "page": "src/pages/Doctors/index.tsx" },
+      { "path": "/services", "title": "Our Services", "page": "src/pages/Services/index.tsx" },
+      { "path": "/specialties", "title": "Medical Specialties", "page": "src/pages/Specialties/index.tsx" },
+      { "path": "/hospitals", "title": "Our Hospitals", "page": "src/pages/Hospitals/index.tsx" },
+      { "path": "/health-packages", "title": "Health Checkup Packages", "page": "src/pages/HealthPackages/index.tsx" },
+      { "path": "/blog", "title": "Health Blog", "page": "src/pages/Blog/index.tsx" },
+      { "path": "/blog/:slug", "title": "Blog Post", "page": "src/pages/Blog/BlogPost.tsx", "dynamic": true },
+      { "path": "/contact", "title": "Contact Us", "page": "src/pages/Contact/index.tsx" },
+      { "path": "/book-appointment", "title": "Book Appointment", "page": "src/pages/Booking/index.tsx" },
+      { "path": "/privacy", "title": "Privacy Policy", "page": "src/pages/Privacy/index.tsx" },
+      { "path": "/terms", "title": "Terms of Service", "page": "src/pages/Terms/index.tsx" },
+      { "path": "/faq", "title": "FAQ", "page": "src/pages/FAQ/index.tsx" }
+    ]
+  },
+
+  "pages": {
+    "sharedPatterns": [
+      "Inline <style> block defining page-scoped classes",
+      "Hero with h1 + subtitle + action buttons",
+      "CTA banner ('Ready to...') near bottom",
+      "Sections wrapped in <SectionTitle> + <ScrollReveal>"
+    ],
+    "details": {
+      "Home": {
+        "path": "src/pages/Home/index.tsx",
+        "sections": [
+          "Hero (video background, search, doctor/stat highlights)",
+          "Stats (bordered cards)",
+          "Promo / features",
+          "Services carousel/grid",
+          "Specialties",
+          "Doctors preview",
+          "How it works",
+          "Hospitals",
+          "Health packages",
+          "Testimonials",
+          "FAQ teaser",
+          "CTA — 'Ready to Take Control of Your Health?'"
+        ]
+      },
+      "About": {
+        "path": "src/pages/About/index.tsx",
+        "sections": ["Hero — 'About MediHive'", "Mission & Vision", "Stats", "Story/Timeline", "Values", "Team", "CTA — 'Join Us in Our Mission'"]
+      },
+      "Doctors": {
+        "path": "src/pages/Doctors/index.tsx",
+        "sections": ["Hero — 'Find Your Doctor'", "Filter sidebar (search, specialization, experience, sorting, video-only)", "Doctor cards grid"]
+      },
+      "Services": {
+        "path": "src/pages/Services/index.tsx",
+        "sections": ["Hero — 'Our Services'", "Service card grid (alternating backgrounds, circular icon variant)", "Benefits", "CTA — 'Ready to Get Started?'"]
+      },
+      "Specialties": {
+        "path": "src/pages/Specialties/index.tsx",
+        "sections": ["Hero — 'Medical Specialties'", "Specialty card grid", "Key stats"]
+      },
+      "Hospitals": {
+        "path": "src/pages/Hospitals/index.tsx",
+        "sections": ["Hero — 'Our Hospitals'", "Hospital cards", "Emergency info"]
+      },
+      "HealthPackages": {
+        "path": "src/pages/HealthPackages/index.tsx",
+        "sections": ["Hero — 'Health Checkup Packages'", "Package cards (popular highlighted, price/tests)", "Comparison notes", "CTA — 'Not Sure Which Package is Right for You?'"]
+      },
+      "Blog": {
+        "path": "src/pages/Blog/index.tsx",
+        "sections": ["Hero — 'Health Blog'", "Featured post", "Post grid + category/tag filters"]
+      },
+      "BlogPost": {
+        "path": "src/pages/Blog/BlogPost.tsx",
+        "sections": ["Post hero (title, author, meta)", "Article body", "Related posts"]
+      },
+      "Contact": {
+        "path": "src/pages/Contact/index.tsx",
+        "sections": ["Hero — 'Contact Us'", "Contact form (CloudWatchForm)", "Contact info cards", "Hospital locations grid"]
+      },
+      "Booking": {
+        "path": "src/pages/Booking/index.tsx",
+        "sections": ["Hero — 'Book an Appointment'", "Step 1: Select Doctor & Specialization", "Step 2: Select Date & Time", "Step 3: Patient Details & Confirm", "Success screen — 'Appointment Confirmed!'"]
+      },
+      "Privacy": {
+        "path": "src/pages/Privacy/index.tsx",
+        "sections": ["Hero — 'Privacy Policy'", "9 policy sections (Intro, Information Collected, Usage, Storage, Sharing, Rights, Cookies, Changes, Contact)"]
+      },
+      "Terms": {
+        "path": "src/pages/Terms/index.tsx",
+        "sections": ["Hero — 'Terms of Service'", "11 clauses (Acceptance, Services, Responsibilities, Appointments, Telemedicine, Payment, IP, Liability, Termination, Governing Law, Contact)"]
+      },
+      "FAQ": {
+        "path": "src/pages/FAQ/index.tsx",
+        "sections": ["Hero — 'Frequently Asked Questions'", "Category accordion (accordion items)", "Support CTA — 'Still have questions?'"]
+      }
+    }
+  },
+
+  "sharedUiComponents": {
+    "path": "src/components/ui",
+    "components": [
+      { "name": "SEO", "file": "SEO.tsx", "purpose": "Per-route meta title/description via Helmet" },
+      { "name": "SectionTitle", "file": "SectionTitle.tsx", "purpose": "Consistent section heading (text-wrap balance)" },
+      { "name": "ScrollReveal", "file": "ScrollReveal.tsx", "purpose": "Reveal-on-scroll wrapper (visible by default, framer-motion)" },
+      { "name": "AnimatedCounter", "file": "AnimatedCounter.tsx", "purpose": "Count-up number animation (stats)" },
+      { "name": "Button", "file": "button.tsx", "purpose": "shadcn button (cn())" },
+      { "name": "Input", "file": "input.tsx", "purpose": "shadcn input" },
+      { "name": "Label", "file": "label.tsx", "purpose": "shadcn label" },
+      { "name": "CloudWatchForm", "file": "cloud-watch-form.tsx", "purpose": "Contact form (animated) on Contact page" }
+    ],
+    "chatbot": {
+      "path": "src/components/chatbot",
+      "launcher": "ChatBot.tsx",
+      "engine": "chatEngine.ts (rule-based keyword matching)"
+    },
+    "hooks": {
+      "useScrollReveal": "src/hooks/useScrollReveal.ts"
+    }
+  },
+
+  "dataModel": {
+    "types": "src/types/index.ts",
+    "entities": [
+      { "name": "Doctor", "fields": ["id", "name", "title", "specializations", "experience", "rating", "reviewCount", "hospital", "hospitalId", "image", "availability", "fee", "education", "languages"] },
+      { "name": "Service", "fields": ["id", "title", "description", "icon", "image", "slug"] },
+      { "name": "Hospital", "fields": ["id", "name", "description", "image", "rating", "reviewCount", "specializations", "address", "phone", "emergency"] },
+      { "name": "HealthPackage", "fields": ["id", "name", "description", "price", "originalPrice", "tests", "duration", "popular"] },
+      { "name": "BlogPost", "fields": ["id", "title", "excerpt", "content", "slug", "category", "tags", "author", "image", "readTime", "publishedAt", "featured"] },
+      { "name": "Testimonial", "fields": ["id", "name", "role", "image", "content", "rating"] },
+      { "name": "FAQItem", "fields": ["id", "question", "answer", "category"] },
+      { "name": "Specialty", "fields": ["id", "name", "description", "icon", "slug", "doctorCount"] }
+    },
+    "dataFile": "src/utils/data.ts"
+  },
+
+  "utilities": {
+    "helpers": {
+      "cn": "join class names",
+      "formatCurrency": "INR formatting",
+      "formatDate": "readable date",
+      "slugify": "URL-safe slugs"
+    },
+    "lib": "src/lib/utils.ts (cn (clsx + tailwind-merge))"
+  },
+
+  "config": {
+    "tailwind": "tailwind.config.js",
+    "postcss": "postcss.config.js",
+    "viteAliases": "@ -> src (Vite + tsconfig)",
+    "buildCheck": "npm run build (tsc -b && vite build)"
+  }
+}
